@@ -11,19 +11,19 @@ enum ActionStatus{
 };
 
 
-class BaseAction{
+class BaseAction{//the system input. ABSTRACT CLASS
 public:
-	BaseAction();
+	BaseAction();//empty constructor
 	ActionStatus getStatus() const;
-	virtual void act(Session& sess)=0;
+	virtual void act(Session& sess)=0;// perform a specific action (not implimented here, implimented on each act)
 	virtual std::string toString() const=0;
 protected:
-	void complete();
-	void error(const std::string& errorMsg);
+	void complete();// called in order to change to status to COMPLETED.
+	void error(const std::string& errorMsg);//display to the screen the error messege and change the status to ERROR.
 	std::string getErrorMsg() const;
 private:
 	std::string errorMsg;
-	ActionStatus status;
+	ActionStatus status;// pending, completed, error
 };
 
 class CreateUser  : public BaseAction {
