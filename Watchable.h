@@ -13,6 +13,10 @@ public:
     virtual ~Watchable();//destructor
     virtual std::string toString() const = 0;//abstract.
     virtual Watchable* getNextWatchable(Session&) const = 0;//abstract.
+    const long getId() const;//out addition.
+    const int getLength() const;//our addition.
+protected:
+    const std::vector<std::string> getTags() const;//our addition
 private:
     const long id;
     int length;
@@ -33,7 +37,8 @@ class Episode: public Watchable{
 public:
     Episode(long id, const std::string& seriesName,int length, int season, int episode ,const std::vector<std::string>& tags);//constructor.
     virtual std::string toString() const;
-    virtual Watchable* getNextWatchable(Session&) const;
+    virtual Watchable* getNextWatchable(Session&) const;//get the next rec.
+
 //high chance we dont need destructor.
 private:
     std::string seriesName;

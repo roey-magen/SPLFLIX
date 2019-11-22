@@ -37,6 +37,7 @@ public:
     RerunRecommenderUser(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s);// holds the next recommendation.
 private:
+    int index_of_next_recommendation;//our addition
 };
 
 class GenreRecommenderUser : public User {//recommend contect based on the most popular tag in the user WATCH HISTORY. if a set of tags has the same value, it will recommand by lex order. recommand on content that the user didnt watch already. If no such content exists, it will try with the second most popular tag, and so on.
@@ -44,6 +45,7 @@ public:
     GenreRecommenderUser(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s);// holds the next recommendation.
 private:
+
 };
 //additional notes:
 //-In the case in which there is more than one content which fits the recommendation criteria –for example, two movies whose length is equal to the average content length in theuser’swatching history, the content with the smaller index in the content vector would be picked.

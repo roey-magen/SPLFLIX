@@ -5,6 +5,9 @@ when initialyzing new project:
 git init - מאתחל סביבת עבודה
 git clone <url> - הורדת הפרוייקט לסביבת העבודה
 
+
+
+
 when you want to work on existing project:
 1. open the project folder in terminal. (local folder)
 2. git pull origin master - עדכון הפרוייקט לגרסא הכי עדכנית
@@ -16,3 +19,10 @@ when you want to work on existing project:
 7. git commit -m "<רשום מה שינית>"
 8. git pull origin master - עדכן את הפרוקייט לגרסא הכי עדכנית לפני ביצוע עדכון
 9.git push origin master- דחוף את הפרוייק לגיטהאב
+
+
+
+
+
+
+
