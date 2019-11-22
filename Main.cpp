@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Session.h"
 using namespace std;
+#include <json.hpp>
+#include <fstream>
+using json= nlohmann::json;
 
 int main(int argc, char** argv){
 //	if(argc!=2)
@@ -10,6 +13,9 @@ int main(int argc, char** argv){
 //	}
 //	Session s(argv[1]);
 //	s.start();
-cout<<"reoy";
+std::ifstream i("config1.json");
+json j;
+j=json::parse(i);
+cout<<j;
 	return 0;
 }
