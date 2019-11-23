@@ -5,7 +5,7 @@
 #include <iostream>
 
 class Session;
-
+using namespace std;
 enum ActionStatus{
 	PENDING, COMPLETED, ERROR
 };
@@ -28,27 +28,44 @@ private:
 
 class CreateUser  : public BaseAction {
 public:
+    CreateUser(string userName,string recommend_algo); //our addition
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+
+private: //our addition
+    string userName;
+    string recommend_algo;
 };
 
 class ChangeActiveUser : public BaseAction {
 public:
+    ChangeActiveUser(string name);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+
+private:
+    string nameActiveUser;
 };
 
 class DeleteUser : public BaseAction {
 public:
+    DeleteUser(string name);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
+private:
+    string name;
 };
 
 
 class DuplicateUser : public BaseAction {
 public:
+    DuplicateUser(string newName, string originName);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
+
+private:
+    string newName;
+    string originName;
 };
 
 class PrintContentList : public BaseAction {

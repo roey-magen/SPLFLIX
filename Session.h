@@ -15,6 +15,9 @@ public:
     ~Session();//destructor
     void start();
     const  std::vector<Watchable*> & getContent() const;//our addition.
+    unordered_map<string, User *> getUserMap() const; //our addition
+    bool changeActiveUser(string name);  //our addition, return true if change user sucsess
+    bool deleteUser(string name);
 
     User & getActiveUser() const;//check how to return const- we have problem in getNextWatchable in watchable class.
 
