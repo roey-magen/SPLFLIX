@@ -25,6 +25,9 @@ Watchable* Movie::getNextWatchable(Session & s) const{
     return s.getActiveUser().getRecommendation(s);
 }
 std::string Movie::toString() const{
+    return name;
+}
+std::string Movie::fullToString() const{
     vector<string> vector_of_tags=this->getTags();
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
     return name+" "+to_string(this->getLength())+" Minutes "+Tags;
@@ -49,12 +52,11 @@ Watchable* Episode::getNextWatchable(Session & s) const {
 std::string Episode::toString() const{
     vector<string> vector_of_tags=this->getTags();
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
-    if(season<10 && episode<10)
-        return seriesName+" S0"+ to_string(season)+"E0"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
-    else if(season<10 && episode>9)
-        return seriesName+" S0"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
-    else if(season>10 && episode<10 )
-        return seriesName+" S"+ to_string(season)+"E0"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
-    else return seriesName+" S"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
+    return seriesName+" S0"+ to_string(season)+"E0"+to_string(episode);
+}
+string Episode::fullToString() const {
+    vector<string> vector_of_tags=this->getTags();
+    string Tags=Statics_Functions::vector_to_string(vector_of_tags);
+    return seriesName+" S"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
 }
 

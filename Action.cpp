@@ -1,6 +1,6 @@
 #include "Action.h"
 #include "User.h"
-#include "Session.h""
+#include "Session.h"
 #include "Watchable.h"
 #include <unordered_map>
 using namespace std;
@@ -68,3 +68,14 @@ void DeleteUser::act(Session& sess){
 
 //DuplicateUser::DuplicateUser(string newName, string originName):newName(newName),originName(originName) {}
 
+PrintContentList::PrintContentList() {} //check if is ok to use fullToString
+
+void PrintContentList::act (Session& sess){
+   if(sess.printContentList()) this->complete();
+}
+
+PrintWatchHistory::PrintWatchHistory() {}
+
+void PrintWatchHistory::act(Session& sess) {
+    sess.getActiveUser().printHistory();
+}

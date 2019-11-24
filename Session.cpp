@@ -27,3 +27,13 @@ bool Session::deleteUser(string name){
     return true;
 
 }
+bool Session::printContentList() const{ //maybe need to change toString methood to only name, create new toString function
+    int j=1;
+    for (auto i = this->content.begin(); i != this->content.end(); ++i) {
+        cout << j + ". " + (*i)->fullToString() << endl;
+        j++;
+        return true;
+    }
+
+
+}

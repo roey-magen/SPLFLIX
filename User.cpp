@@ -9,8 +9,14 @@ User::User(const string& name):name(name){}
 std::string User::getName() const {
     return name;
 }
-std::vector<Watchable*> User::get_history() const {
+std::vector<Watchable*>  User::get_history() const {
     return history;
+}
+
+void User::printHistory() {
+    int j=1;
+    for(auto i = history.begin(); i!=history.end();++i)//create string from the tags vector
+        cout<<to_string(j)+". "+(*i)->toString()<<endl;
 }
 
 
@@ -24,7 +30,7 @@ Watchable* LengthRecommenderUser::getRecommendation(Session &s) {
     if(s.getContent().size()<=history.size()) return nullptr;//if the user watched all the avaible content.
     double avg=0;
     int id_closest_to_avg=-1;
-    int min_distance_from_avg= INTMAX_MAX;
+    long long min_distance_from_avg= INTMAX_MAX;
     for(auto & it: history)
         avg+=it->getLength();//for the average.
     avg/=history.size();//calculate average.
@@ -57,7 +63,7 @@ Watchable* RerunRecommenderUser::getRecommendation(Session &s) {
 
 ///CLASS GenreRecommenderUser
 GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){}
-Watchable* GenreRecommenderUser::getRecommendation(Session &s) {
+//Watchable* GenreRecommenderUser::getRecommendation(Session &s) {}
     //most popular tag:
 
 
@@ -65,4 +71,3 @@ Watchable* GenreRecommenderUser::getRecommendation(Session &s) {
    //try next popular tag.
    //order map, multy map
    //sort algorithm:
-}
