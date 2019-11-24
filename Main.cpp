@@ -8,6 +8,7 @@ using json = nlohmann::json;
 class Movie;
 class Episode;
 class Watchable;
+
 int main(int argc, char** argv){
 //	if(argc!=2)
 //	{
@@ -18,9 +19,8 @@ int main(int argc, char** argv){
 //	s.start();
 
 
-	return 0;
-
 }
+
 //
 //void buildDataBase(const string& path, vector<Watchable*> & content) {
 //    std::ifstream i("/home/tzach/CLionProjects/projectA/untitled/config1.json");///change to path later.

@@ -16,8 +16,9 @@ public:
     virtual Watchable* getNextWatchable(Session&) const = 0;//abstract.
     const long getId() const;//out addition.
     const int getLength() const;//our addition.
-protected:
     const std::vector<std::string> getTags() const;//our addition
+    bool containsTag(const  std::string& s);
+protected:
 private:
     const long id;
     int length;

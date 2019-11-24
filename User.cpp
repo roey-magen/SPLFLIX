@@ -4,6 +4,7 @@
 #include "User.h"
 #include "Session.h"
 #include "Watchable.h"
+#include <map>
 using namespace std;
 User::User(const string& name):name(name){}
 std::string User::getName() const {
@@ -63,11 +64,55 @@ Watchable* RerunRecommenderUser::getRecommendation(Session &s) {
 
 ///CLASS GenreRecommenderUser
 GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){}
-//Watchable* GenreRecommenderUser::getRecommendation(Session &s) {}
-    //most popular tag:
+std::map<std::string,int>* GenreRecommenderUser::initTagMap(){
+    map <string, int>* mymap=new map<string,int>;
+    for(auto it : history){//add all the user watch history to the map.
+        vector<string> tags= it->getTags();
+        for( auto tag: tags){
+            if(mymap->count(tag)>0)
+                (*mymap)[tag]++;
+            else mymap->insert(pair<string,int>(tag,1));
+        }
+    }
+    return mymap;
+}
+string GenreRecommenderUser::findTagToSearch(std::map<string,int>*& mymap){
+    int max=-1;
+    for(auto pair: *mymap)
+        if(pair.second>max)
+            max = pair.second;
+    for(auto pair : *mymap)
+        if(pair.second==max)
+            return  pair.first;
+    return nullptr;
+}
+bool User::userDidntWatch(Watchable* & content){
+        for(auto & it:history)
+            if(content->toString()==it->toString())
+                return false;
+        return true;
+}
+Watchable* GenreRecommenderUser::getRecommendation(Session &s) {
+    if (history.size() == s.getContent().size()) return nullptr;//if the user watched all the content availble.
+    else {
+        //init map- free the map on this function
+        map<string, int> *mymap = initTagMap();
+        //try to find content to recommend
+        while (!mymap->empty()) {
+            string tag = findTagToSearch(mymap);
+            for (auto cont: s.getContent())
+                if (cont->containsTag(tag) && userDidntWatch(cont)) {//if you found content, return it.
+                    delete mymap;
+                    return cont;
+                }
+            mymap->erase(tag);
+            }
+        delete mymap;
+        return nullptr;
+    }
+}
 
 
-             //return a movie from content that not in history.
-   //try next popular tag.
-   //order map, multy map
-   //sort algorithm:
+
+
+

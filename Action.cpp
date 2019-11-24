@@ -27,44 +27,49 @@ std::string BaseAction::getErrorMsg() const{
     return errorMsg;
 }
 
-
+///CREATE_USER
 CreateUser::CreateUser(string userName, string recommend_algo):BaseAction(),userName(userName), recommend_algo(recommend_algo) {}
 
 void CreateUser::act(Session& sess){
-    if(recommend_algo!="len" && recommend_algo=="rer" && recommend_algo!="gen")
+    if(recommend_algo!="len" && recommend_algo!="rer" && recommend_algo!="gen")
         this->error("no legal algorithm");
     else if( sess.getUserMap().count(userName)>0)
         this->error("name already exist"); ///need to check if name is legal
      else { //input legal
         User *u;
         if (recommend_algo == "len") {
-            u = new LengthRecommenderUser("userName");
+            u = new LengthRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         } else if (recommend_algo == "rer") {
-            u = new RerunRecommenderUser("userName");
+            u = new RerunRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         } else if (recommend_algo == "gen") {
-            u = new GenreRecommenderUser("userName");
+            u = new GenreRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         }
-        u = nullptr;
+        delete u;
         this->complete();
     }
 }
+std::string CreateUser::toString() const{}
 
+///CHANGE_ACTIVE_USER
 ChangeActiveUser::ChangeActiveUser(string nameActiveUser):nameActiveUser(nameActiveUser) {}
 
 void ChangeActiveUser::act(Session& sess){
     if(sess.changeActiveUser(nameActiveUser)) this->error("input name is invalid");
     else this->complete();
 }
+std::string ChangeActiveUser::toString() const{}
 
+///DELETE_USER
 DeleteUser::DeleteUser(string name): name(name) {}
 
 void DeleteUser::act(Session& sess){
     if(sess.deleteUser(name)) this->error("input name is invalid");
     else this->complete();
 }
+std::string DeleteUser::toString() const{}
 
 //DuplicateUser::DuplicateUser(string newName, string originName):newName(newName),originName(originName) {}
 
@@ -73,9 +78,11 @@ PrintContentList::PrintContentList() {} //check if is ok to use fullToString
 void PrintContentList::act (Session& sess){
    if(sess.printContentList()) this->complete();
 }
+std::string PrintContentList::toString() const{}
 
 PrintWatchHistory::PrintWatchHistory() {}
 
 void PrintWatchHistory::act(Session& sess) {
     sess.getActiveUser().printHistory();
 }
+std::string PrintWatchHistory::toString() const{}

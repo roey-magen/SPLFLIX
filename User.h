@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_set>
 #include <unordered_map>
+#include <map>
 class Watchable;
 class Session;
 
@@ -17,6 +18,7 @@ public:
     void printHistory();
 protected:
     std::vector<Watchable*> history;//vector of all the things the user watched in the past.
+    bool userDidntWatch(Watchable* & content);
 private:
     const std::string name;// name of the user.
 
@@ -45,6 +47,8 @@ class GenreRecommenderUser : public User {//recommend contect based on the most 
 public:
     GenreRecommenderUser(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s);// holds the next recommendation.
+    std::map<std::string,int>* initTagMap();//our addition.
+    std::string findTagToSearch(std::map<std::string,int>*& mymap);//our addition.
 private:
 
 };
