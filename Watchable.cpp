@@ -64,4 +64,8 @@ string Episode::fullToString() const {
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
     return seriesName+" S"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
 }
+void Episode::setNextId( long id ){
+   nextEpisodeId=id;
+}
+ void Movie::setNextId( long id ){};//our addition
 

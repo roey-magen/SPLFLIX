@@ -20,13 +20,15 @@ string Statics_Functions::vector_to_string(vector<string> & vec) {
     Tags.at(Tags.size()-1)=']';
     return Tags;
 }
-void Statics_Functions::buildDataBase(const string& path, vector<Watchable*> & content) {
+vector<Watchable*> Statics_Functions::buildDataBase(const string& path) {
     ifstream i("/home/tzach/CLionProjects/projectA/untitled/config1.json");///change to path later.
     if(!i){///need to check what to do if failed to load file.(maybe remove at the end)
         std::cout <<"Failed to open Json file. Please check the file path.";
     }
     json j;
     i>>j;
+    i.close();
+    vector<Watchable*> content;
     ///finish reading file here
     long index = 0;
     for (auto it:j["movies"]) {
@@ -49,15 +51,19 @@ void Statics_Functions::buildDataBase(const string& path, vector<Watchable*> & c
         for (auto season:it["seasons"]) {
             season_number++;
             int episode_number = 1;
-            while (season.get<std::int8_t>() != 0) {//need to check it reads!
+            int season_episode_number =season.get<std::int8_t>();
+            while (season_episode_number != 0) {
                 Watchable *episode = new Episode(index, series_name, series_length, season_number, episode_number,
                                                  tags);//check if we need to free.
-                content.push_back(episode);
                 index++;
+                episode->setNextId(index);
+                content.push_back(episode);
                 episode_number++;
+                season_episode_number--;
             }
-
         }
+        content[index-1]->setNextId(-1);
 
     }
+    return content;
 }

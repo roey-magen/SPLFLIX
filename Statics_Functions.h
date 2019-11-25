@@ -15,7 +15,7 @@ using namespace std;
 class Statics_Functions{
 public:
     static string vector_to_string(vector<string> &vec);
-    static void buildDataBase(const string& path, vector<Watchable*> & content);
+    static vector<Watchable*> buildDataBase(const string& path);
 
 
 };
