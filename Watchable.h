@@ -14,10 +14,13 @@ public:
     virtual std::string toString() const = 0;//abstract, only string of name
     virtual std::string fullToString() const=0; //string include: name, seasion/episode(if episode),leangth' tags
     virtual Watchable* getNextWatchable(Session&) const = 0;//abstract.
+    virtual void setNextId( long id )=0;//our addition
     const long getId() const;//out addition.
     const int getLength() const;//our addition.
-protected:
     const std::vector<std::string> getTags() const;//our addition
+    bool containsTag(const  std::string& s);//our addition
+
+protected:
 private:
     const long id;
     int length;
@@ -30,6 +33,7 @@ public:
     virtual std::string toString() const;
     virtual std::string fullToString() const;
     virtual Watchable* getNextWatchable(Session&) const;//get the next recommondation according to the user algorithm. (return null if not exist)
+    virtual void setNextId( long id );//our addition
 private:
     std::string name;
 };
@@ -41,7 +45,7 @@ public:
     virtual std::string toString() const;
     virtual std::string fullToString() const;
     virtual Watchable* getNextWatchable(Session&) const;//get the next rec.
-
+    virtual void setNextId( long id );//our addition
 //high chance we dont need destructor.
 private:
     std::string seriesName;

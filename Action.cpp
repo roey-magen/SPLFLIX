@@ -27,7 +27,7 @@ std::string BaseAction::getErrorMsg() const{
     return errorMsg;
 }
 
-
+///CREATE_USER
 CreateUser::CreateUser(string userName, string recommend_algo):BaseAction(),userName(userName), recommend_algo(recommend_algo) {}
 
 void CreateUser::act(Session& sess){
@@ -48,24 +48,32 @@ void CreateUser::act(Session& sess){
             sess.getUserMap().insert({userName, u});
         }
         delete u;
+<<<<<<< HEAD
         u = nullptr; //check if ok
+=======
+>>>>>>> eb59e3eb50945969f55e9fce1def061def2982c4
         this->complete();
     }
 }
+std::string CreateUser::toString() const{}
 
+///CHANGE_ACTIVE_USER
 ChangeActiveUser::ChangeActiveUser(string nameActiveUser):nameActiveUser(nameActiveUser) {}
 
 void ChangeActiveUser::act(Session& sess){
     if(sess.changeActiveUser(nameActiveUser)) this->error("input name is invalid");
     else this->complete();
 }
+std::string ChangeActiveUser::toString() const{}
 
+///DELETE_USER
 DeleteUser::DeleteUser(string name): name(name) {}
 
 void DeleteUser::act(Session& sess){
     if(sess.deleteUser(name)) this->error("input name is invalid");
     else this->complete();
 }
+std::string DeleteUser::toString() const{}
 
 //DuplicateUser::DuplicateUser(string newName, string originName):newName(newName),originName(originName) {}
 
@@ -74,6 +82,7 @@ PrintContentList::PrintContentList() {} //check if is ok to use fullToString
 void PrintContentList::act (Session& sess){
    if(sess.printContentList()) this->complete();
 }
+std::string PrintContentList::toString() const{}
 
 PrintWatchHistory::PrintWatchHistory() {}
 
@@ -81,6 +90,7 @@ void PrintWatchHistory::act(Session& sess) {
     cout<<"Watch history for "+sess.getActiveUser().getName()<<endl;
     sess.getActiveUser().printHistory();
 }
+<<<<<<< HEAD
 
 Watch::Watch(int contentId):contentId(contentId) {} //not finish
 
@@ -103,3 +113,6 @@ void PrintActionsLog::act(Session& sess){ //not finish
 
 
 
+=======
+std::string PrintWatchHistory::toString() const{}
+>>>>>>> eb59e3eb50945969f55e9fce1def061def2982c4

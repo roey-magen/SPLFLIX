@@ -15,6 +15,11 @@ const std::vector<std::string> Watchable::getTags() const{
 const long Watchable::getId() const {
         return id;
 }
+bool Watchable::containsTag(const  std::string& s){//check if a
+    for(auto it: tags)
+        if(it==s) return true;
+    return false;
+}
 
 
 
@@ -52,11 +57,15 @@ Watchable* Episode::getNextWatchable(Session & s) const {
 std::string Episode::toString() const{
     vector<string> vector_of_tags=this->getTags();
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
-    return seriesName+" S0"+ to_string(season)+"E0"+to_string(episode);
+    return seriesName+" S"+ to_string(season)+"E"+to_string(episode);
 }
 string Episode::fullToString() const {
     vector<string> vector_of_tags=this->getTags();
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
     return seriesName+" S"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
 }
+void Episode::setNextId( long id ){
+   nextEpisodeId=id;
+}
+ void Movie::setNextId( long id ){};//our addition
 
