@@ -31,23 +31,24 @@ std::string BaseAction::getErrorMsg() const{
 CreateUser::CreateUser(string userName, string recommend_algo):BaseAction(),userName(userName), recommend_algo(recommend_algo) {}
 
 void CreateUser::act(Session& sess){
-    if(recommend_algo!="len" && recommend_algo=="rer" && recommend_algo!="gen")
+    if(recommend_algo!="len" && recommend_algo!="rer" && recommend_algo!="gen")
         this->error("no legal algorithm");
     else if( sess.getUserMap().count(userName)>0)
         this->error("name already exist"); ///need to check if name is legal
      else { //input legal
         User *u;
         if (recommend_algo == "len") {
-            u = new LengthRecommenderUser("userName");
+            u = new LengthRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         } else if (recommend_algo == "rer") {
-            u = new RerunRecommenderUser("userName");
+            u = new RerunRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         } else if (recommend_algo == "gen") {
-            u = new GenreRecommenderUser("userName");
+            u = new GenreRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         }
-        u = nullptr;
+        delete u;
+        u = nullptr; //check if ok
         this->complete();
     }
 }
@@ -77,5 +78,28 @@ void PrintContentList::act (Session& sess){
 PrintWatchHistory::PrintWatchHistory() {}
 
 void PrintWatchHistory::act(Session& sess) {
+    cout<<"Watch history for "+sess.getActiveUser().getName()<<endl;
     sess.getActiveUser().printHistory();
 }
+
+Watch::Watch(int contentId):contentId(contentId) {} //not finish
+
+void Watch::act(Session &sess) {//need to complete
+    cout<<"Watching "+sess.getContent()[contentId]->toString()<<endl;
+}
+
+PrintActionsLog::PrintActionsLog(){}
+
+void PrintActionsLog::act(Session& sess){ //not finish
+    string status="";
+    for (vector<BaseAction>::reverse_iterator i = sess.getActionLog().rbegin(); i != sess.getActionLog().rend(); i++) {
+        if(i->getStatus()== ActionStatus::ERROR)
+            status="ERROR";
+        if(i->getStatus()== ActionStatus::COMPLETED)
+            status="COMPLETED";
+   //     cout << i->toString()+" "+status+i->getErrorMsg()<<endl;
+    }
+}
+
+
+

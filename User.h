@@ -13,8 +13,10 @@ public:
     User(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s) = 0;//abstract.
     std::string getName() const;
-    std::vector<Watchable*> get_history() const;//return history, why not by reference, not our class
+    std::vector<Watchable*> get_history() ;//return history, why not by reference, not our class
     void printHistory();
+
+
 protected:
     std::vector<Watchable*> history;//vector of all the things the user watched in the past.
 private:

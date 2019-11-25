@@ -19,8 +19,9 @@ public:
     bool changeActiveUser(string name);  //our addition, return true if change user sucsess
     bool deleteUser(string name);
     bool printContentList() const;
-
     User & getActiveUser() const;//check how to return const- we have problem in getNextWatchable in watchable class.
+    std::vector<BaseAction*> & getActionLog();
+
 
 private:
     std::vector<Watchable*> content;//available watching content (read the json text to this vector).

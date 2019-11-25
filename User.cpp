@@ -9,15 +9,21 @@ User::User(const string& name):name(name){}
 std::string User::getName() const {
     return name;
 }
-std::vector<Watchable*>  User::get_history() const {
+std::vector<Watchable*> User::get_history()  {
     return history;
 }
 
 void User::printHistory() {
-    int j=1;
-    for(auto i = history.begin(); i!=history.end();++i)//create string from the tags vector
-        cout<<to_string(j)+". "+(*i)->toString()<<endl;
+    int j = 1;
+    for (auto i = history.begin(); i != history.end(); ++i){ //create string from the tags vector
+        cout << to_string(j) + ". " + (*i)->toString() << endl;
+    j++;
 }
+}
+
+
+
+
 
 
 
@@ -62,7 +68,8 @@ Watchable* RerunRecommenderUser::getRecommendation(Session &s) {
 }
 
 ///CLASS GenreRecommenderUser
-GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){}
+GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){
+}
 //Watchable* GenreRecommenderUser::getRecommendation(Session &s) {}
     //most popular tag:
 

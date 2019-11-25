@@ -86,13 +86,18 @@ public:
 
 class Watch : public BaseAction {
 public:
+    Watch(int contentId);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+
+private:
+    int contentId;
 };
 
 
 class PrintActionsLog : public BaseAction {
 public:
+    PrintActionsLog();
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
 };

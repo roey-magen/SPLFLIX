@@ -32,8 +32,11 @@ bool Session::printContentList() const{ //maybe need to change toString methood 
     for (auto i = this->content.begin(); i != this->content.end(); ++i) {
         cout << j + ". " + (*i)->fullToString() << endl;
         j++;
-        return true;
     }
 
+    return true;
+}
 
+std::vector<BaseAction*> & Session::getActionLog(){
+    return  actionsLog;
 }
