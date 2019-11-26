@@ -14,15 +14,21 @@ User::~User() {
 std::string User::getName() const {
     return name;
 }
-std::vector<Watchable*>  User::get_history() const {
+std::vector<Watchable*> User::get_history()  {
     return history;
 }
 
 void User::printHistory() {
-    int j=1;
-    for(auto i = history.begin(); i!=history.end();++i)//create string from the tags vector
-        cout<<to_string(j)+". "+(*i)->toString()<<endl;
+    int j = 1;
+    for (auto i = history.begin(); i != history.end(); ++i){ //create string from the tags vector
+        cout << to_string(j) + ". " + (*i)->toString() << endl;
+    j++;
 }
+}
+
+
+
+
 
 
 
@@ -78,6 +84,12 @@ User* RerunRecommenderUser::clone(){
 }
 
 ///CLASS GenreRecommenderUser
+<<<<<<< HEAD
+GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){
+}
+//Watchable* GenreRecommenderUser::getRecommendation(Session &s) {}
+    //most popular tag:
+=======
 GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){}
 std::map<std::string,int>* GenreRecommenderUser::initTagMap(){
     map <string, int>* mymap=new map<string,int>;
@@ -136,5 +148,6 @@ User* GenreRecommenderUser::clone(){
 }
 
 
+>>>>>>> eb59e3eb50945969f55e9fce1def061def2982c4
 
 

@@ -89,7 +89,7 @@ void Session::start(){
             actionsLog.push_back(execute);
         }
         else if(input[0]=="watch"){
-            BaseAction *execute=new Watch();
+            BaseAction *execute=new Watch(input[1]);
             actionsLog.push_back(execute);
         }
         else if(input[0]=="log"){
@@ -149,8 +149,11 @@ bool Session::printContentList() const{ //maybe need to change toString methood 
     for (auto i = this->content.begin(); i != this->content.end(); ++i) {
         cout << j + ". " + (*i)->fullToString() << endl;
         j++;
-        return true;
     }
 
+    return true;
+}
 
+std::vector<BaseAction*> & Session::getActionLog(){
+    return  actionsLog;
 }

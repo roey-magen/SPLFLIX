@@ -42,6 +42,10 @@ void CreateUser::act(Session& sess){
             sess.getUserMap().insert({userName, u});
         }
         delete u;
+<<<<<<< HEAD
+        u = nullptr; //check if ok
+=======
+>>>>>>> eb59e3eb50945969f55e9fce1def061def2982c4
         this->complete();
     }
 }
@@ -83,21 +87,34 @@ std::string PrintContentList::toString() const{}
 
 PrintWatchHistory::PrintWatchHistory() {}
 void PrintWatchHistory::act(Session& sess) {
+    cout<<"Watch history for "+sess.getActiveUser().getName()<<endl;
     sess.getActiveUser().printHistory();
 }
 std::string PrintWatchHistory::toString() const{}
 
 
-
-Watch::Watch(){}
-void Watch::act(Session &sess) {}
-string Watch::toString() const {}
-
-
-PrintActionsLog::PrintActionsLog(){}
-void PrintActionsLog::act(Session& sess){}
-std::string PrintActionsLog::toString() const{}
-
 Exit::Exit(){}
 void Exit::act(Session& sess){}
 std::string Exit::toString() const{}
+
+
+Watch::Watch(int contentId):contentId(contentId) {} //not finish
+string Watch::toString() const {}
+void Watch::act(Session &sess) {//need to complete
+    cout<<"Watching "+sess.getContent()[contentId]->toString()<<endl;
+}
+
+PrintActionsLog::PrintActionsLog(){}
+void PrintActionsLog::act(Session& sess){ //not finish
+    string status="";
+    for (vector<BaseAction>::reverse_iterator i = sess.getActionLog().rbegin(); i != sess.getActionLog().rend(); i++) {
+        if(i->getStatus()== ActionStatus::ERROR)
+            status="ERROR";
+        if(i->getStatus()== ActionStatus::COMPLETED)
+            status="COMPLETED";
+   //     cout << i->toString()+" "+status+i->getErrorMsg()<<endl;
+    }
+}
+std::string PrintActionsLog::toString() const{}
+
+
