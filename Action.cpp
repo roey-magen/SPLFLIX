@@ -41,11 +41,7 @@ void CreateUser::act(Session& sess){
             u = new GenreRecommenderUser(userName);
             sess.getUserMap().insert({userName, u});
         }
-        delete u;
-<<<<<<< HEAD
-        u = nullptr; //check if ok
-=======
->>>>>>> eb59e3eb50945969f55e9fce1def061def2982c4
+        u= nullptr;
         this->complete();
     }
 }
@@ -106,14 +102,14 @@ void Watch::act(Session &sess) {//need to complete
 
 PrintActionsLog::PrintActionsLog(){}
 void PrintActionsLog::act(Session& sess){ //not finish
-    string status="";
-    for (vector<BaseAction>::reverse_iterator i = sess.getActionLog().rbegin(); i != sess.getActionLog().rend(); i++) {
-        if(i->getStatus()== ActionStatus::ERROR)
-            status="ERROR";
-        if(i->getStatus()== ActionStatus::COMPLETED)
-            status="COMPLETED";
-   //     cout << i->toString()+" "+status+i->getErrorMsg()<<endl;
-    }
+//    string status="";
+//    for (vector<BaseAction>::reverse_iterator i = sess.getActionLog().rbegin(); i != sess.getActionLog().rend(); i++) {
+//        if(i->getStatus()== ActionStatus::ERROR)
+//            status="ERROR";
+//        if(i->getStatus()== ActionStatus::COMPLETED)
+//            status="COMPLETED";
+//   //     cout << i->toString()+" "+status+i->getErrorMsg()<<endl;
+//    }
 }
 std::string PrintActionsLog::toString() const{}
 

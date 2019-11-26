@@ -62,11 +62,12 @@ void Session::start(){
     string s1;
     bool flag=true;
     while (flag) {
-        cin >> s1;
+        getline (std::cin,s1);
         vector<string> input = Statics_Functions::getCommand(s1, " ");
         if(input[0]=="createuser"){
             BaseAction *execute=new CreateUser(input[1],input[2]);
-                actionsLog.push_back(execute);
+            execute->act(*this);
+            actionsLog.push_back(execute);
         }
         else if(input[0]=="changeuser"){
             BaseAction *execute=new ChangeActiveUser(input[1]);
@@ -89,7 +90,7 @@ void Session::start(){
             actionsLog.push_back(execute);
         }
         else if(input[0]=="watch"){
-            BaseAction *execute=new Watch(input[1]);
+            BaseAction *execute=new Watch(stoi(input[1]));
             actionsLog.push_back(execute);
         }
         else if(input[0]=="log"){

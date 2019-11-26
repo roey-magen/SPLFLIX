@@ -84,12 +84,6 @@ User* RerunRecommenderUser::clone(){
 }
 
 ///CLASS GenreRecommenderUser
-<<<<<<< HEAD
-GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){
-}
-//Watchable* GenreRecommenderUser::getRecommendation(Session &s) {}
-    //most popular tag:
-=======
 GenreRecommenderUser::GenreRecommenderUser (const std::string& name):User(name){}
 std::map<std::string,int>* GenreRecommenderUser::initTagMap(){
     map <string, int>* mymap=new map<string,int>;
@@ -147,7 +141,5 @@ User* GenreRecommenderUser::clone(){
     return user;
 }
 
-
->>>>>>> eb59e3eb50945969f55e9fce1def061def2982c4
 
 
