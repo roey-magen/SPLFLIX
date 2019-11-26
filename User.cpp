@@ -7,6 +7,10 @@
 #include <map>
 using namespace std;
 User::User(const string& name):name(name){}
+User::~User() {
+    for(auto it: history)
+        delete it;
+}
 std::string User::getName() const {
     return name;
 }
@@ -22,11 +26,9 @@ void User::printHistory() {
 
 
 
-
-
-
 ///CLASS LengthRecommenderUser
 LengthRecommenderUser::LengthRecommenderUser(const std::string& name):User(name){}
+
 Watchable* LengthRecommenderUser::getRecommendation(Session &s) {
     if(s.getContent().size()<=history.size()) return nullptr;//if the user watched all the avaible content.
     double avg=0;
@@ -51,6 +53,12 @@ Watchable* LengthRecommenderUser::getRecommendation(Session &s) {
     return s.getContent()[id_closest_to_avg];
 }
 
+User* LengthRecommenderUser::clone(){
+    LengthRecommenderUser *user= new LengthRecommenderUser(this->getName());
+    for(auto & it: this->history)
+        user->history.push_back(it);
+    return user;
+}
 ///CLASS RerunRecommenderUser
 RerunRecommenderUser::RerunRecommenderUser (const std::string& name):User(name){
     index_of_next_recommendation=0;
@@ -60,6 +68,13 @@ Watchable* RerunRecommenderUser::getRecommendation(Session &s) {
     int to_return=index_of_next_recommendation;
     index_of_next_recommendation=(index_of_next_recommendation+1) % history.size();
     return history[to_return];
+}
+User* RerunRecommenderUser::clone(){
+    RerunRecommenderUser *user= new RerunRecommenderUser(this->getName());
+    user->index_of_next_recommendation=this->index_of_next_recommendation;
+    for(auto & it: this->history)
+        user->history.push_back(it);
+    return user;
 }
 
 ///CLASS GenreRecommenderUser
@@ -102,16 +117,23 @@ Watchable* GenreRecommenderUser::getRecommendation(Session &s) {
             string tag = findTagToSearch(mymap);
             for (auto cont: s.getContent())
                 if (cont->containsTag(tag) && userDidntWatch(cont)) {//if you found content, return it.
+                    mymap->clear();
                     delete mymap;
                     return cont;
                 }
             mymap->erase(tag);
             }
+        mymap->clear();
         delete mymap;
         return nullptr;
     }
 }
-
+User* GenreRecommenderUser::clone(){
+    GenreRecommenderUser *user= new GenreRecommenderUser(this->getName());
+    for(auto & it: this->history)
+        user->history.push_back(it);
+    return user;
+}
 
 
 

@@ -86,6 +86,7 @@ public:
 
 class Watch : public BaseAction {
 public:
+    Watch();
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
 };
@@ -93,12 +94,14 @@ public:
 
 class PrintActionsLog : public BaseAction {
 public:
+    PrintActionsLog();
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
 };
 
 class Exit : public BaseAction {
 public:
+    Exit();
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
 };

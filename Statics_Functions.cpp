@@ -21,7 +21,7 @@ string Statics_Functions::vector_to_string(vector<string> & vec) {
     return Tags;
 }
 vector<Watchable*> Statics_Functions::buildDataBase(const string& path) {
-    ifstream i("/home/tzach/CLionProjects/projectA/untitled/config1.json");///change to path later.
+    ifstream i(path);///change to path later.
     if(!i){///need to check what to do if failed to load file.(maybe remove at the end)
         std::cout <<"Failed to open Json file. Please check the file path.";
     }
@@ -66,4 +66,16 @@ vector<Watchable*> Statics_Functions::buildDataBase(const string& path) {
 
     }
     return content;
+}
+vector<string> Statics_Functions::getCommand(string s, string delimiter){
+    size_t pos_start = 0, pos_end, delim_len = delimiter.length();
+    string token;
+    vector<string> res;
+    while ((pos_end = s.find (delimiter, pos_start)) != string::npos) {
+        token = s.substr (pos_start, pos_end - pos_start);
+        pos_start = pos_end + delim_len;
+        res.push_back (token);
+    }
+    res.push_back (s.substr (pos_start));
+    return res;
 }

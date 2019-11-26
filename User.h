@@ -12,10 +12,13 @@ class Session;
 class User{//ABSTRACT CLASS
 public:
     User(const std::string& name);//constructor.
+    virtual~User();
     virtual Watchable* getRecommendation(Session& s) = 0;//abstract.
+    virtual User* clone()=0;
     std::string getName() const;
     std::vector<Watchable*> get_history() const;//return history, why not by reference, not our class
     void printHistory();
+
 protected:
     std::vector<Watchable*> history;//vector of all the things the user watched in the past.
     bool userDidntWatch(Watchable* & content);
@@ -32,6 +35,7 @@ class LengthRecommenderUser : public User {//prefer to watch content whose lengt
 public:
     LengthRecommenderUser(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s);// holds the next recommendation.
+    virtual User* clone();
 private:
 };
 
@@ -39,6 +43,7 @@ class RerunRecommenderUser : public User {//recommned by cycle: first recommend 
 public:
     RerunRecommenderUser(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s);// holds the next recommendation.
+    virtual User* clone();
 private:
     int index_of_next_recommendation;//our addition
 };
@@ -47,6 +52,7 @@ class GenreRecommenderUser : public User {//recommend contect based on the most 
 public:
     GenreRecommenderUser(const std::string& name);//constructor.
     virtual Watchable* getRecommendation(Session& s);// holds the next recommendation.
+    virtual User* clone();
     std::map<std::string,int>* initTagMap();//our addition.
     std::string findTagToSearch(std::map<std::string,int>*& mymap);//our addition.
 private:

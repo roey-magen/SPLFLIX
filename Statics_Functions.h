@@ -16,7 +16,7 @@ class Statics_Functions{
 public:
     static string vector_to_string(vector<string> &vec);
     static vector<Watchable*> buildDataBase(const string& path);
-
+    static vector<string> getCommand(string s, string delimiter);
 
 };
 #endif //SPLFLIX_STATICS_FUNCTIONS_H
