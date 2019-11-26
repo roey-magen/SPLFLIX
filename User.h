@@ -9,14 +9,19 @@
 class Watchable;
 class Session;
 
+class LengthRecommenderUser;
+
 class User{//ABSTRACT CLASS
 public:
     User(const std::string& name);//constructor.
+    User(const User& other);
     virtual~User();
     virtual Watchable* getRecommendation(Session& s) = 0;//abstract.
     virtual User* clone()=0;
     std::string getName() const;
-    std::vector<Watchable*> get_history() ;//return history, why not by reference, not our class
+    void setName(const std::string& name);
+    std::vector<Watchable*> &get_history() ;//return history, why not by reference, not our class
+    void addToHistory(Watchable* toAdd);
     void printHistory();
 
 
@@ -24,7 +29,7 @@ protected:
     std::vector<Watchable*> history;//vector of all the things the user watched in the past.
     bool userDidntWatch(Watchable* & content);
 private:
-    const std::string name;// name of the user.
+     std::string name;// name of the user.
 
 };
 

@@ -25,10 +25,12 @@ public:
     void updateUserMap(pair<string,User*>);
     bool changeActiveUser(string name);  //our addition, return true if change user sucsess
     bool deleteUser(string name);
+    bool dupUser(string newName,string originName);
     bool printContentList() const;
     User & getActiveUser() const;//check how to return const- we have problem in getNextWatchable in watchable class.
     void clear();
     std::vector<BaseAction*> & getActionLog();
+
 
 
 

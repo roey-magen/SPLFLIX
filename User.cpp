@@ -7,25 +7,34 @@
 #include <map>
 using namespace std;
 User::User(const string& name):name(name){}
+User::User(const User & other):name(other.name){
+    for(auto & it: other.history)//not deep copy. only duplicate to pointers.
+        history.push_back(it);
+}
 User::~User() {
     for(auto it: history)
-        delete it;
+        it= nullptr;
 }
 std::string User::getName() const {
     return name;
 }
-std::vector<Watchable*> User::get_history()  {
+std::vector<Watchable*> &User::get_history()  {
     return history;
 }
-
 void User::printHistory() {
     int j = 1;
     for (auto i = history.begin(); i != history.end(); ++i){ //create string from the tags vector
         cout << to_string(j) + ". " + (*i)->toString() << endl;
-    j++;
+        j++;
+    }
 }
+void User::setName(const std::string& name){
+    this->name=name;
 }
-
+Watchable* User::getRecommendation(Session& s){}
+void User::addToHistory(Watchable* toAdd){
+    history.push_back(toAdd);
+}
 
 
 
@@ -34,7 +43,6 @@ void User::printHistory() {
 
 ///CLASS LengthRecommenderUser
 LengthRecommenderUser::LengthRecommenderUser(const std::string& name):User(name){}
-
 Watchable* LengthRecommenderUser::getRecommendation(Session &s) {
     if(s.getContent().size()<=history.size()) return nullptr;//if the user watched all the avaible content.
     double avg=0;
@@ -58,13 +66,14 @@ Watchable* LengthRecommenderUser::getRecommendation(Session &s) {
     }
     return s.getContent()[id_closest_to_avg];
 }
-
 User* LengthRecommenderUser::clone(){
     LengthRecommenderUser *user= new LengthRecommenderUser(this->getName());
     for(auto & it: this->history)
         user->history.push_back(it);
     return user;
 }
+
+
 ///CLASS RerunRecommenderUser
 RerunRecommenderUser::RerunRecommenderUser (const std::string& name):User(name){
     index_of_next_recommendation=0;

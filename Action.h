@@ -17,6 +17,9 @@ public:
 	ActionStatus getStatus() const;
 	virtual void act(Session& sess)=0;// perform a specific action (not implimented here, implimented on each act)
 	virtual std::string toString() const=0;
+    virtual BaseAction* clone()=0;
+    void setErrorMsg(const string & msg);
+    void setStatus(const ActionStatus e);
 protected:
 	void complete();// called in order to change to status to COMPLETED.
 	void error(const std::string& errorMsg);//display to the screen the error messege and change the status to ERROR.
@@ -31,7 +34,7 @@ public:
     CreateUser(string userName,string recommend_algo); //our addition
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
-
+    virtual BaseAction* clone();
 private: //our addition
     string userName;
     string recommend_algo;
@@ -42,6 +45,7 @@ public:
     ChangeActiveUser(string name);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 
 private:
     string nameActiveUser;
@@ -52,6 +56,7 @@ public:
     DeleteUser(string name);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 private:
     string name;
 };
@@ -62,6 +67,7 @@ public:
     DuplicateUser(string newName, string originName);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 
 private:
     string newName;
@@ -73,6 +79,7 @@ public:
     PrintContentList();
 	virtual void act (Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 };
 
 class PrintWatchHistory : public BaseAction {
@@ -80,18 +87,20 @@ public:
     PrintWatchHistory();
 	virtual void act (Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 
 };
 
 
 class Watch : public BaseAction {
 public:
-    Watch(int contentId);
+    Watch(long contentId);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 
 private:
-    int contentId;
+   long contentId;
 };
 
 
@@ -100,6 +109,7 @@ public:
     PrintActionsLog();
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 };
 
 class Exit : public BaseAction {
@@ -107,5 +117,6 @@ public:
     Exit();
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone();
 };
 #endif
