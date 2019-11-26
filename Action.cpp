@@ -33,13 +33,13 @@ void CreateUser::act(Session& sess){
         User *u;
         if (recommend_algo == "len") {
             u = new LengthRecommenderUser(userName);
-            sess.getUserMap().insert({userName, u});
+            sess.updateUserMap({userName, u});
         } else if (recommend_algo == "rer") {
             u = new RerunRecommenderUser(userName);
-            sess.getUserMap().insert({userName, u});
+            sess.updateUserMap({userName, u});
         } else if (recommend_algo == "gen") {
             u = new GenreRecommenderUser(userName);
-            sess.getUserMap().insert({userName, u});
+            sess.updateUserMap({userName, u});
         }
         u= nullptr;
         this->complete();

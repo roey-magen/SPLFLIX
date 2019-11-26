@@ -18,8 +18,11 @@ int main(int argc, char** argv) {
 	}
 	Session s(argv[1]);
 	s.start();
+//    User *u=new  LengthRecommenderUser("tzach");
+//    unordered_map<string, User *> m= s.getUserMap();
+//    m.insert(pair<string,User*>("tzach",u));
 
-
+    cout<<"hi";
 //    Session s(argv[1]);
 //    Session t=s;//works
 //    Session* h=new Session(argv[1]);

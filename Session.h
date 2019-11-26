@@ -22,6 +22,7 @@ public:
     void start();
     const  std::vector<Watchable*> & getContent() const;//our addition.
     unordered_map<string, User *> getUserMap() const; //our addition
+    void updateUserMap(pair<string,User*>);
     bool changeActiveUser(string name);  //our addition, return true if change user sucsess
     bool deleteUser(string name);
     bool printContentList() const;

@@ -132,6 +132,10 @@ User & Session::getActiveUser()  const{//check how to return const- we have prob
 unordered_map<string, User *> Session::getUserMap() const{
     return userMap;
 }
+void Session::updateUserMap(pair<string,User*> p){
+    userMap.insert(p);
+}
+
 
 bool Session::changeActiveUser(string name){  //return true if change user sucsess
     if (userMap.count(name)==0)  return false;
