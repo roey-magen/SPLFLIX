@@ -61,10 +61,9 @@ private:
     string name;
 };
 
-
 class DuplicateUser : public BaseAction {
 public:
-    DuplicateUser(string newName, string originName);
+    DuplicateUser(string originName, string newName);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
     virtual BaseAction* clone();
@@ -91,7 +90,6 @@ public:
 
 };
 
-
 class Watch : public BaseAction {
 public:
     Watch(long contentId);
@@ -102,7 +100,6 @@ public:
 private:
    long contentId;
 };
-
 
 class PrintActionsLog : public BaseAction {
 public:

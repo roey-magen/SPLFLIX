@@ -37,15 +37,6 @@ Session& Session::operator=(Session &&other){//move assignment operator.
     }
     return *this;
 }
-void Session::clearPointersObjects(){
-    for(Watchable* w: content)
-        w=nullptr;
-    for(BaseAction* action: actionsLog)
-        action= nullptr;
-    for(auto &x: userMap)
-        x.second= nullptr;
-    activeUser=nullptr;
-}
 Session::~Session() {//destructor
     clear();
 }
@@ -57,8 +48,8 @@ void Session::copy(const Session & other){
     for(auto &it : other.userMap) {
         int i=0;
         this->userMap.insert({it.first, it.second->clone()});
-        for(auto & hist: it.second->get_history()) {
-            userMap.find(it.first)->second->get_history()[i] = (content[hist->getId()]);
+        for(auto & hist: it.second->getHistoryByRef()) {
+            userMap.find(it.first)->second->getHistoryByRef()[i] = (content[hist->getId()]);
             i++;
         }
     }
@@ -128,20 +119,14 @@ void Session::clear() {
         delete it.second;
     activeUser = nullptr;
 }
-
-
-
-
-
-
-const  std::vector<Watchable*> & Session::getContent() const{
-    return content;
-}
-User & Session::getActiveUser()  const{//check how to return const- we have problem in getNextWatchable in watchable class.
-    return *activeUser;
-}
-unordered_map<string, User *> Session::getUserMap() const{
-    return userMap;
+void Session::clearPointersObjects(){
+    for(Watchable* w: content)
+        w=nullptr;
+    for(BaseAction* action: actionsLog)
+        action= nullptr;
+    for(auto &x: userMap)
+        x.second= nullptr;
+    activeUser=nullptr;
 }
 void Session::updateUserMap(pair<string,User*> p){
     userMap.insert(p);
@@ -158,7 +143,7 @@ bool Session::deleteUser(string name){
     return true;
 
 }
-bool Session::dupUser(string newName,string originName){
+bool Session::dupUser(string originName,string newName){
     if(userMap.count(originName)==0||userMap.count(newName)>0) return false;
     User *toInsert=userMap.find(originName)->second->clone();
     toInsert->setName(newName);
@@ -173,6 +158,15 @@ bool Session::printContentList() const{ //maybe need to change toString methood 
     }
 
     return true;
+}
+const  std::vector<Watchable*> & Session::getContent() const{
+    return content;
+}
+User & Session::getActiveUser()  const{//check how to return const- we have problem in getNextWatchable in watchable class.
+    return *activeUser;
+}
+unordered_map<string, User *> Session::getUserMap() const{
+    return userMap;
 }
 std::vector<BaseAction*> & Session::getActionLog(){
     return  actionsLog;

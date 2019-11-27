@@ -35,7 +35,7 @@ std::string Movie::toString() const{
 std::string Movie::fullToString() const{
     vector<string> vector_of_tags=this->getTags();
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
-    return name+" "+to_string(this->getLength())+" Minutes "+Tags;
+    return name+" "+to_string(this->getLength())+" minutes "+Tags;
 }
 Watchable* Movie::clone(){
     Watchable *movie=new Movie(this->getId(),this->name,this->getLength(),this->getTags());
@@ -43,11 +43,11 @@ Watchable* Movie::clone(){
 }
 void Movie::setNextId( long id ){};//our addition
 
+
 ///EPISODE CLASS
 Episode::Episode(long id, const std::string &seriesName, int length, int season, int episode,const std::vector<std::string> &tags):
                  Watchable(id,length,tags),seriesName(seriesName),season(season),episode(episode),nextEpisodeId(-1) {}
 std::string Episode::getName() const {return seriesName;}
-
 Watchable* Episode::getNextWatchable(Session & s) const {
     if(nextEpisodeId!=-1){//the last episode of each series is -1.
         return s.getContent()[nextEpisodeId];
@@ -64,7 +64,7 @@ std::string Episode::toString() const{
 string Episode::fullToString() const {
     vector<string> vector_of_tags=this->getTags();
     string Tags=Statics_Functions::vector_to_string(vector_of_tags);
-    return seriesName+" S"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" Minutes"+" " +Tags;
+    return seriesName+" S"+ to_string(season)+"E"+to_string(episode)+" "+to_string(this->getLength())+" minutes"+" " +Tags;
 }
 void Episode::setNextId( long id ){
    nextEpisodeId=id;

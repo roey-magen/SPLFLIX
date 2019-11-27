@@ -20,20 +20,16 @@ public:
     void clearPointersObjects();
     void copy(const Session & other);
     void start();
-    const  std::vector<Watchable*> & getContent() const;//our addition.
-    unordered_map<string, User *> getUserMap() const; //our addition
     void updateUserMap(pair<string,User*>);
+    void clear();
     bool changeActiveUser(string name);  //our addition, return true if change user sucsess
     bool deleteUser(string name);
-    bool dupUser(string newName,string originName);
+    bool dupUser(string originName,string newName);
     bool printContentList() const;
+    const  std::vector<Watchable*> & getContent() const;//our addition.
     User & getActiveUser() const;//check how to return const- we have problem in getNextWatchable in watchable class.
-    void clear();
     std::vector<BaseAction*> & getActionLog();
-
-
-
-
+    unordered_map<string, User *> getUserMap() const; //our addition
 private:
     std::vector<Watchable*> content;//available watching content (read the json text to this vector).
     std::vector<BaseAction*> actionsLog;//history of all actions.

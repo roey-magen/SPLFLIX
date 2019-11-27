@@ -14,29 +14,25 @@ class LengthRecommenderUser;
 class User{//ABSTRACT CLASS
 public:
     User(const std::string& name);//constructor.
-    User(const User& other);
     virtual~User();
     virtual Watchable* getRecommendation(Session& s) = 0;//abstract.
     virtual User* clone()=0;
-    std::string getName() const;
-    void setName(const std::string& name);
-    std::vector<Watchable*> &get_history() ;//return history, why not by reference, not our class
     void addToHistory(Watchable* toAdd);
     void printHistory();
+    void setName(const std::string& name);
+    std::vector<Watchable*> get_history() ;
+    std::vector<Watchable*> &getHistoryByRef() ;
+    std::string getName() const;
 
 
 protected:
-    std::vector<Watchable*> history;//vector of all the things the user watched in the past.
+    std::vector<Watchable*> history;
     bool userDidntWatch(Watchable* & content);
 private:
-     std::string name;// name of the user.
+     std::string name;
 
 };
 
-//recomendation algorithms:
-//ALL ALGORITHMS:
-//if the user watched a movie - recommend by user  recomendation algorithm.
-//if the user watched an episode- recommend the next episode, if exists. if not, recommend by user  recomendation algorithm.
 class LengthRecommenderUser : public User {//prefer to watch content whose length is closest to the avg length of all the things he watched so far.
 public:
     LengthRecommenderUser(const std::string& name);//constructor.
@@ -64,7 +60,4 @@ public:
 private:
 
 };
-//additional notes:
-//-In the case in which there is more than one content which fits the recommendation criteria –for example, two movies whose length is equal to the average content length in theuser’swatching history, the content with the smaller index in the content vector would be picked.
-//-If no content fits the recommendation criteria –a null pointer should be returned.
 #endif

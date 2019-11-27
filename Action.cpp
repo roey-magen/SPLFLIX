@@ -18,14 +18,14 @@ void BaseAction::error(const std::string &errorMsg)  {
     this->errorMsg=errorMsg;
     cout<<"Error - "+errorMsg<<endl; //check if we need it here
 }
-std::string BaseAction::getErrorMsg() const{
-    return errorMsg;
-}
 void BaseAction::setErrorMsg(const string & msg){
     errorMsg=msg;
 }
 void BaseAction::setStatus(const ActionStatus e){
     status=e;
+}
+std::string BaseAction::getErrorMsg() const{
+    return errorMsg;
 }
 
 ///CREATE_USER
@@ -80,6 +80,7 @@ BaseAction* ChangeActiveUser::clone(){
     toReturn->setStatus(this->getStatus());
 }
 
+
 ///DELETE_USER
 DeleteUser::DeleteUser(string name): name(name) {}
 void DeleteUser::act(Session& sess){
@@ -98,9 +99,8 @@ BaseAction* DeleteUser::clone(){
 }
 
 
-
 ///DUPLICATE USER
-DuplicateUser::DuplicateUser(string newName, string originName):newName(newName),originName(originName) {}
+DuplicateUser::DuplicateUser(string originName, string newName):newName(newName),originName(originName) {}
 void DuplicateUser::act(Session& sess){
     if(sess.dupUser(newName,originName)) this->complete();
     else this->error("input name is invalid");
@@ -208,6 +208,8 @@ BaseAction* PrintActionsLog::clone(){
     toReturn->setErrorMsg(this->getErrorMsg());
     toReturn->setStatus(this->getStatus());
 }
+
+
 ///EXIT
 Exit::Exit(){}
 void Exit::act(Session& sess){

@@ -7,10 +7,6 @@
 #include <map>
 using namespace std;
 User::User(const string& name):name(name){}
-User::User(const User & other):name(other.name){
-    for(auto & it: other.history)//not deep copy. only duplicate to pointers.
-        history.push_back(it);
-}
 User::~User() {
     for(auto it: history)
         it= nullptr;
@@ -18,7 +14,10 @@ User::~User() {
 std::string User::getName() const {
     return name;
 }
-std::vector<Watchable*> &User::get_history()  {
+std::vector<Watchable*> User::get_history()  {
+    return history;
+}
+std::vector<Watchable*> &User::getHistoryByRef(){
     return history;
 }
 void User::printHistory() {
@@ -31,10 +30,11 @@ void User::printHistory() {
 void User::setName(const std::string& name){
     this->name=name;
 }
-Watchable* User::getRecommendation(Session& s){}
 void User::addToHistory(Watchable* toAdd){
     history.push_back(toAdd);
 }
+Watchable* User::getRecommendation(Session& s){}
+
 
 
 
