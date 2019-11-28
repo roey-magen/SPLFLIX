@@ -127,7 +127,7 @@ Watchable* GenreRecommenderUser::getRecommendation(Session &s) {
         map<string, int> *mymap = initTagMap(); //init map- free the map on this function(ordered by lex order)
         //try to find content to recommend
         while (!mymap->empty()) {
-            string tag = findTagToSearch(mymap);//find the tag with the highest number of appearance in user history.
+            string tag = findTagToSearch(mymap);//find the tag with the highest number of appearance in user history(already order by lex)
             for (auto cont: s.getContent())
                 if (cont->containsTag(tag) && userDidntWatch(cont)) {//if you found content, return it.
                     mymap->clear();
